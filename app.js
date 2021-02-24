@@ -3,12 +3,27 @@ require('dotenv').config();
 
 // declare required variables
 const keys = require('./keys.js');
-// const spotify = new Spotify(keys.spotify);
 const inquirer = require('inquirer');
+const axios = require('axios');
 
 // Movie Search helper function
 const searchMovie = (query) =>{
-  console.log('searching for ' + query);
+  const queryUrl = 'http://www.omdbapi.com/?apikey=trilogy&t=' + query;
+
+  console.log(queryUrl);
+  
+  axios.get(queryUrl).then(function(response){
+    console.log('Title: ' + response.data.Title);
+    console.log('Release Year: ' + response.data.Year);
+    console.log('IMDB rating: ' + response.data.imdbRating);
+    console.log('Rotten Tomatoes Rating: ' + response.data.Ratings[1].Value);
+    console.log('Languages: ' + response.data.Language);
+    console.log('actors: ' + response.data.Actors);
+  }
+
+  ).catch((err)=>{
+    console.log(err);
+  })
 }
 
 // Spotify Search helper function
@@ -21,12 +36,14 @@ const concertSearch = (query) =>{
   console.log('searching for' + query);
 }
 
+// Welcome menu
 const welcome = () =>{
   console.log('Welcome to the Multimedia search app!');
   console.log('-------------------------------------');
   mainMenu();
 }
 
+// Main menu with inquirer prompt
 const mainMenu = () =>{
   inquirer.prompt([
     {
@@ -41,6 +58,7 @@ const mainMenu = () =>{
       ]
     }
   ]).then(function(data){
+    // Switch function based on use input
     switch(data.menuChoice){
       
       case 'Search movies':
@@ -61,6 +79,7 @@ const mainMenu = () =>{
   })
 }
 
+// Movie Menu inquirer prompt
 const movieMenu = () =>{
   inquirer.prompt([
     {
@@ -73,6 +92,7 @@ const movieMenu = () =>{
   })
 }
 
+// Song menu inquirer prompt
 const songMenu = () =>{
   inquirer.prompt([
     {
@@ -85,6 +105,7 @@ const songMenu = () =>{
   })
 }
 
+// Concert menu inquirer prompt
 const concertMenu = () =>{
   inquirer.prompt([
     {
@@ -97,4 +118,5 @@ const concertMenu = () =>{
   })
 }
 
+// Initiate the welcome menu when the file is run
 welcome();

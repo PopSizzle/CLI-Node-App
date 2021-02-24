@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/PopSizzle/CLI-Node-App/issues"
   },
-  "homepage": "https://github.com/PopSizzle/CLI-Node-App#readme"
+  "homepage": "https://github.com/PopSizzle/CLI-Node-App#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
+    "inquirer": "^7.3.3",
+    "moment": "^2.29.1",
+    "node-spotify-api": "^1.1.1"
+  }
 }
